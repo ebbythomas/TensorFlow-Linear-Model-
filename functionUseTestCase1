@@ -1,5 +1,5 @@
 using CSV, TensorFlow, DataFrames
-cd(raw"/home/ebby/juliaFolder/oct26/oct29");
+#cd(""); Specify your path
 pwd()
 
 # including the LMTF function
