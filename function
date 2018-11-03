@@ -2,8 +2,7 @@ function useTensor(xTrain, yTrain, xTest, yTest; varCount = 0)
     
     yTrain1 = convert(Array{Float32}, yTrain[:,:]);
     
-    m = nrow(xTrain)
-    n = ncol(xTrain)
+    m,n =size(xTrain) 
     m1 = nrow(xTest)
      
     dfNames = names(xTrain);
@@ -11,8 +10,7 @@ function useTensor(xTrain, yTrain, xTest, yTest; varCount = 0)
     xTrain1 = convert(Array{Float32}, xTrain);
     xTest1= convert(Array{Float32},xTest)
   
-    r = size(xTrain1,1)
-    c = size(xTrain1,2)
+    r,c = size(xTrain1)
   
     # ind_min to calculate the index of minimum t-value intialised with 0
     ind_min = 0;
@@ -33,7 +31,7 @@ function useTensor(xTrain, yTrain, xTest, yTest; varCount = 0)
         Y = placeholder(Float32, shape=[r,1])
         
         # Putting the variables to sxtore the weights and bias term.
-        W = Variable(rand(c, 1) * (-0.2-0.2) - 0.2) 
+        W = Variable(rand(c, 1) * (-0.2-0.2) - 0.2) # Just a random value
         b = Variable(rand(1, 1) * (-0.2-0.2) - 0.2)
         
         # Defining the linear model
@@ -43,8 +41,8 @@ function useTensor(xTrain, yTrain, xTest, yTest; varCount = 0)
         loss = reduce_sum(((linear_model - Y).^2)./(2*r))
         
         # Input of the "learning rate" and minimisation of loss.
-	alpha = 0.0000000001  
-	optimize = train.GradientDescentOptimizer(alpha)
+	lRate = 0.0000000001  
+	optimize = train.GradientDescentOptimizer(lRate)
         alg = train.minimize(optimize, loss)
         
         # Initialising Variables W and b
