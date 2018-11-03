@@ -1,0 +1,18 @@
+using CSV, TensorFlow, DataFrames
+cd(raw"/home/ebby/juliaFolder/oct26/oct29");
+pwd()
+
+# including the LMTF function
+include("useTensor.jl");
+
+# getting the train set and test set frkom csv.
+trainSet = CSV.read("trainSet.csv");
+testSet = CSV.read("testSet.csv");
+
+# Defining the input(x) and output(y) variables for the trainSet and testSet
+
+xTrain = trainSet[:, filter(x->x!=:KWH, names(trainSet))];
+xTest = testSet[:,filter(x->x!=:KWH, names(testSet))];
+yTrain = trainSet[:, filter(x->x==:KWH, names(trainSet))];
+yTest = testSet[:,filter(x->x==:KWH, names(testSet))];
+useTensor(xTrain,yTrain,xTest,yTest,varCount=20)
